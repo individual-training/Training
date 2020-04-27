@@ -12,6 +12,10 @@ const { SubMenu } = Menu;
 @connect(({ account }) => ({ account }))
 export default class Account extends React.Component {
   accountChart = null;
+  player = null;
+  state = {
+    paused: false,
+  };
 
   componentDidMount() {
     const {
@@ -27,6 +31,8 @@ export default class Account extends React.Component {
         this.initChart(data.history || []);
       },
     });
+    this.player &&
+      this.player.subscribeToStateChange(this.handleStateChange.bind(this));
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -34,6 +40,8 @@ export default class Account extends React.Component {
       account: { data },
     } = this.props;
     this.initChart(data.history || []);
+    this.player &&
+      this.player.subscribeToStateChange(this.handleStateChange.bind(this));
   }
 
   setDay = val => {
@@ -64,15 +72,31 @@ export default class Account extends React.Component {
     });
   };
 
-  onMenuChange = (val) => {
+  onMenuChange = val => {
     this.props.dispatch({
-      type:'account/setCourseId',
-      payload: val
-    })
-  }
-  selectedItem = (val) => {
-    console.log('[ index.js/Account/74 ] dddd >>', val);
-  }
+      type: 'account/setCourseId',
+      payload: val.key,
+    });
+  };
+  selectedItem = (val, videoName, partId) => {
+    this.props.dispatch({
+      type: 'account/setVideoUrl',
+      payload: {
+        url: val[0].Url,
+        videoName: videoName,
+        partId,
+      },
+    });
+  };
+
+  handleStateChange = state => {
+    const { paused } = this.state;
+    if (state.paused !== paused) {
+      this.setState({
+        paused: state.paused,
+      });
+    }
+  };
 
   initChart = data => {
     const chartNode = document.getElementById('accountCharts');
@@ -124,9 +148,12 @@ export default class Account extends React.Component {
         data: { history },
         search,
         learnData,
-        courseId
+        courseId,
+        videoUrl,
+        videoName,
       },
     } = this.props;
+    const { paused } = this.state;
     const chartFlag = Array.isArray(history) && history.length > 0;
     return (
       <div className={styles.container}>
@@ -193,40 +220,79 @@ export default class Account extends React.Component {
                 selectedKeys={[courseId]}
               >
                 <SubMenu
-                  className={`${styles.item} ${styles.active}`}
+                  className={`${styles.item} ${
+                    partId == 1 ? styles.active : false
+                  }`}
                   key="sub1"
                   title={<span style={{ margin: '0px 15px' }}>上肢</span>}
                 >
-                  {learnData['上肢'] && Object.keys(learnData['上肢'].course).map(key => (
+                  {learnData['上肢'] &&
+                    Object.keys(learnData['上肢'].course).map(key => (
                       <Menu.Item
-                        key={learnData['上肢'].course[key].video}
-                        onClick={()=>(this.selectedItem(learnData['上肢'].course[key].video))}
-                      >{key}</Menu.Item>
+                        className={`${learnData['上肢'].course[key].courseId ==
+                          courseId && styles.active}`}
+                        key={learnData['上肢'].course[key].courseId}
+                        onClick={() =>
+                          this.selectedItem(
+                            learnData['上肢'].course[key].video,
+                            key,
+                            1,
+                          )
+                        }
+                      >
+                        {key}
+                      </Menu.Item>
                     ))}
                 </SubMenu>
                 <SubMenu
-                  className={styles.item}
+                  className={`${styles.item}  ${
+                    partId == 2 ? styles.active : false
+                  }`}
                   key="sub2"
                   title={<span style={{ margin: '0px 15px' }}>腹部</span>}
                 >
-                  {learnData['腹部'] && Object.keys(learnData['腹部'].course).map(key => (
-                    <Menu.Item
-                      key={learnData['腹部'].course[key].courseId}
-                      onClick={()=>(this.selectedItem(learnData['腹部'].course[key].video))}
-                    >{key}</Menu.Item>
-                  ))}
+                  {learnData['腹部'] &&
+                    Object.keys(learnData['腹部'].course).map(key => (
+                      <Menu.Item
+                        className={`${learnData['腹部'].course[key].courseId ==
+                          courseId && styles.active}`}
+                        key={learnData['腹部'].course[key].courseId}
+                        onClick={() =>
+                          this.selectedItem(
+                            learnData['腹部'].course[key].video,
+                            key,
+                            2,
+                          )
+                        }
+                      >
+                        {key}
+                      </Menu.Item>
+                    ))}
                 </SubMenu>
                 <SubMenu
-                  className={styles.item}
+                  className={`${styles.item}  ${
+                    partId == 3 ? styles.active : false
+                  }`}
                   key="sub4"
                   title={<span style={{ margin: '0px 15px' }}>下肢</span>}
                 >
-                  {learnData['下肢'] && Object.keys(learnData['下肢'].course).map(key => (
-                    <Menu.Item
-                      key={learnData['下肢'].course[key].courseId}
-                      onClick={()=>(this.selectedItem(learnData['下肢'].course[key].video))}
-                    >{key}</Menu.Item>
-                  ))}
+                  {learnData['下肢'] &&
+                    Object.keys(learnData['下肢'].course).map(key => (
+                      <Menu.Item
+                        className={`${learnData['下肢'].course[key].courseId ==
+                          courseId && styles.active}`}
+                        key={learnData['下肢'].course[key].courseId}
+                        onClick={() =>
+                          this.selectedItem(
+                            learnData['下肢'].course[key].video,
+                            key,
+                            3,
+                          )
+                        }
+                      >
+                        {key}
+                      </Menu.Item>
+                    ))}
                 </SubMenu>
               </Menu>
             ) : (
@@ -261,10 +327,19 @@ export default class Account extends React.Component {
           <Col span={22} style={{ textAlign: 'center' }}>
             {learn ? (
               <div className={styles.videoContent}>
-                <div style={{ width: 640 }}>
+                {paused && (
+                  <div className={styles.videoName}>
+                    <span>{videoName}</span>
+                  </div>
+                )}
+                <div style={{ width: 800 }}>
                   <Player
-                    poster="/assets/poster.png"
-                    src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                    poster={require('../../static/images/video2.jpg')}
+                    // src={videoUrl}
+                    src={'http://media.w3.org/2010/05/bunny/movie.mp4'}
+                    ref={player => {
+                      this.player = player;
+                    }}
                   >
                     <BigPlayButton position="center" />
                   </Player>

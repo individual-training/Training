@@ -1,31 +1,32 @@
 import { login } from '../../services';
-export default  {
+export default {
   namespace: 'login',
 
   state: {
-    loading:false
+    loading: false,
   },
 
   effects: {
-    *Login({ payload,cbk }, { put, call }) {
-      const result = yield call(login,payload);
-      if(result){
-        yield put({type:'global/setUserInfo',payload:result});
-        localStorage.setItem('userInfo',result);
-        cbk && cbk();
+    *Login({ payload, success, failed }, { put, call }) {
+      const result = yield call(login, payload);
+      if (result) {
+        yield put({ type: 'global/setUserInfo', payload: result });
+        localStorage.setItem('userInfo', result);
+        success && success();
+      } else {
+        failed && failed();
       }
     },
-    *Logout({ payload,cbk }, { put, call }) {
-      localStorage.removeItem('userInfo')
+    *Logout({ payload, cbk }, { put, call }) {
+      localStorage.removeItem('userInfo');
     },
   },
   reducers: {
-    setLoading(state,{payload}){
+    setLoading(state, { payload }) {
       return {
         ...state,
-        loading:payload
-      }
-    }
-  }
+        loading: payload,
+      };
+    },
+  },
 };
-

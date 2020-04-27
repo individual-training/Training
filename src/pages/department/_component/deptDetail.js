@@ -16,14 +16,13 @@ export default class DeptDetail extends React.Component {
   };
 
   tableChange = (pagination, filters) => {
-    console.log('[ deptDetail.js/DeptDetail/19 ] file >>', filters);
     this.props.dispatch({
-      type:'deptDetail/GetScores',
-      payload:{
-        partId: filters.part[0]
-      }
-    })
-  }
+      type: 'deptDetail/GetScores',
+      payload: {
+        partId: filters.part[0],
+      },
+    });
+  };
 
   getColumns = () => {
     return [
@@ -32,13 +31,13 @@ export default class DeptDetail extends React.Component {
         dataIndex: 'part',
         key: 'part',
         align: 'center',
-        filterMultiple:false,
-        defaultFilteredValue:['1'],
+        filterMultiple: false,
+        defaultFilteredValue: ['1'],
         filters: [
           { text: '上肢', value: '1' },
           { text: '腹部', value: '2' },
-          { text: '下肢', value: '3' }
-        ]
+          { text: '下肢', value: '3' },
+        ],
       },
       {
         title: '训练科目',
@@ -88,10 +87,16 @@ export default class DeptDetail extends React.Component {
       <Modal
         destroyOnClose={true}
         width={680}
-        title={<span>
-          <span style={{color:'green',marginRight:15}}>{detailData.record.uname}</span>
-          <span style={{color:'rgba(0,0,0,0.3)',marginRight:15}}>成绩详情</span>
-        </span>}
+        title={
+          <span>
+            <span style={{ color: 'green', marginRight: 15 }}>
+              {detailData.record.uname}
+            </span>
+            <span style={{ color: 'rgba(0,0,0,0.3)', marginRight: 15 }}>
+              成绩详情
+            </span>
+          </span>
+        }
         visible={visible}
         onCancel={this.handleCancel}
         footer={null}

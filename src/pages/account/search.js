@@ -5,10 +5,10 @@ import { Modal, Button, Form, DatePicker } from 'antd';
 import { formItemLayoutSmall } from '@/config/form';
 import styles from './index.less';
 
-@connect(({account}) => ({account}))
+@connect(({ account }) => ({ account }))
 export default class SearchComp extends React.Component {
   state = {
-    date: undefined
+    date: undefined,
   };
 
   handleCancel = () => {
@@ -18,20 +18,19 @@ export default class SearchComp extends React.Component {
     });
   };
 
-  selectDate = (val) => {
-    console.log('[ search.js/SearchComp/24 ] va >>', val);
+  selectDate = val => {
     const date = val.format('YYYY-MM-DD');
     this.setState({
-      date
-    })
-  }
+      date,
+    });
+  };
 
   setSearch = () => {
     const { date } = this.state;
     this.props.dispatch({
-      type:"account/SetSearch",
-      payload:date,
-    })
+      type: 'account/SetSearch',
+      payload: date,
+    });
   };
 
   export = () => {
@@ -39,16 +38,18 @@ export default class SearchComp extends React.Component {
     form.validateFields((err, values) => {
       if (!err) {
         dispatch({
-          type:'deptExport/Export',
-          payload:{
-            date: values.start.format('YYYY-MM-DD')
-          }
-        })
+          type: 'deptExport/Export',
+          payload: {
+            date: values.start.format('YYYY-MM-DD'),
+          },
+        });
       }
     });
   };
   render() {
-    const { account:{searchVisible} } = this.props;
+    const {
+      account: { searchVisible },
+    } = this.props;
     const { date } = this.state;
     return (
       <Modal
@@ -60,9 +61,14 @@ export default class SearchComp extends React.Component {
         footer={null}
       >
         <div style={{ height: '100%', padding: '20px 0px' }}>
-          <Form {...formItemLayoutSmall} >
+          <Form {...formItemLayoutSmall}>
             <Form.Item name="username" label="日期">
-              <DatePicker style={{ width: 200 }} placeholder="起始日期" onChange={this.selectDate} value={ moment(date)  } />
+              <DatePicker
+                style={{ width: 200 }}
+                placeholder="起始日期"
+                onChange={this.selectDate}
+                value={moment(date)}
+              />
             </Form.Item>
           </Form>
         </div>
