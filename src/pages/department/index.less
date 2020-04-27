@@ -1,0 +1,43 @@
+@import '../../global.less';
+
+.department{
+  height:100%;
+  background-color: #666666;
+}
+
+.layout{
+  .sider{
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    .siderMenu{
+      background-color:#EEEEEE;
+      height:100%;
+      :global{
+        .ant-menu{
+          background-color:#EEEEEE;
+        }
+      }
+    }
+    .siderName{
+      flex:1;
+      background-color: #EEEEEE;
+      border-radius: 5px;
+      font-size: 15px;
+      overflow: auto;
+    }
+  }
+  .header{
+    text-align: center;
+    .width110{
+      margin:0 30px;
+    }
+  }
+  :global{
+    .ant-layout-header, .ant-layout-content, .ant-layout-footer{
+      background-color: white;
+    }
+  }
+}
+
+
