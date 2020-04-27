@@ -1,4 +1,4 @@
-# umi project
+## 单兵综合体能训练系统
 
 ## Getting Started
 
@@ -13,4 +13,3 @@ Start the dev server,
 ```bash
 $ yarn start
 ```
-## 单兵综合体能训练系统
