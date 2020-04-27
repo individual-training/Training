@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# umi project
+## 单兵综合体能训练系统
 
 ## Getting Started
 
@@ -14,6 +13,3 @@ Start the dev server,
 ```bash
 $ yarn start
 ```
-=======
-# Training
->>>>>>> 44114e15caafa474885f0545928bb62831d09397
