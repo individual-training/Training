@@ -89,7 +89,7 @@ export default class Department extends React.Component {
       payload: key,
     });
   };
-  getMenu = (child, departmentId, department) => {
+  getMenu = (child, departmentId, data) => {
     const childItems = objToArr(child);
     return (
       <Menu
@@ -101,11 +101,17 @@ export default class Department extends React.Component {
         mode="inline"
       >
         <Menu.SubMenu
-          title={department}
+          title={
+            <span
+              onClick={e => {
+                this.selectMenu({ key: data.departmentId });
+                e.stopPropagation();
+              }}
+            >
+              {data.department}
+            </span>
+          }
           key={'dept'}
-          onClick={() => {
-            this.selectMenu({ key: departmentId });
-          }}
         >
           {childItems.map(item => {
             return <Menu.Item key={item[1]}>{item[0]}</Menu.Item>;
@@ -197,7 +203,7 @@ export default class Department extends React.Component {
     const {
       department: { data = {}, departmentId, partId, pagination, loading },
     } = this.props;
-    const MenuItems = this.getMenu(data.child, departmentId, data.department);
+    const MenuItems = this.getMenu(data.child, departmentId, data);
     return (
       <React.Fragment>
         <Layout

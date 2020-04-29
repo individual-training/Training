@@ -11,6 +11,11 @@ export default class SearchPage extends React.Component {
     userCardId: '',
     userCheck: false,
   };
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'global/GetUserDeptDic',
+    });
+  }
 
   selectChange = val => {
     this.setState({
@@ -65,7 +70,6 @@ export default class SearchPage extends React.Component {
               style={{ width: 260 }}
               onChange={this.selectChange}
             >
-              <Select.Option value="">请选择部门</Select.Option>
               {childDept.map(item => {
                 return <Select.Option value={item[1]}>{item[0]}</Select.Option>;
               })}
