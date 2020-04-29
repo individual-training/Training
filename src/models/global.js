@@ -1,4 +1,9 @@
-import { uploadImg, getUserDeptDic, getUserInfo } from '../services';
+import {
+  uploadImg,
+  getUserDeptDic,
+  getUserInfo,
+  checkCardId,
+} from '../services';
 import { objToArr } from '@/utils/util';
 
 export default {
@@ -28,6 +33,13 @@ export default {
           payload: { department: result.user, userId: result.userId },
         });
       }
+    },
+    *CheckCardId({ payload, success }, { call, put }) {
+      const result = yield call(checkCardId, payload.id);
+      if (result) {
+        success && success();
+      }
+      console.log('[ global.js/effects/34 ] reus >>', result);
     },
     *UploadImg({ payload, success }, { call }) {
       const result = yield call(uploadImg, payload);

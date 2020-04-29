@@ -104,7 +104,7 @@ export default class Department extends React.Component {
           title={department}
           key={'dept'}
           onClick={() => {
-            this.selectMenu();
+            this.selectMenu({ key: departmentId });
           }}
         >
           {childItems.map(item => {
