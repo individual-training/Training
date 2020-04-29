@@ -1,7 +1,7 @@
 import React from 'react';
-import { withRouter, Link, connect } from 'umi';
+import { withRouter, Link, connect, history } from 'umi';
 import { Breadcrumb, Layout, Row, Col, Modal } from 'antd';
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons';
 import breadConfig from '@/config/breadCrumb.js';
 import styles from './index.less';
 
@@ -54,7 +54,11 @@ export default class appLayout extends React.Component {
           </Breadcrumb.Item>
           {locArr.map(item => {
             return breadConfig[item] ? (
-              <Breadcrumb.Item>{breadConfig[item].title}</Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to={breadConfig[item].link}>
+                  {breadConfig[item].title}
+                </Link>
+              </Breadcrumb.Item>
             ) : (
               ''
             );
@@ -62,6 +66,9 @@ export default class appLayout extends React.Component {
         </Breadcrumb>
       );
     }
+  };
+  toIndex = () => {
+    history.push('/');
   };
 
   render() {
@@ -90,7 +97,12 @@ export default class appLayout extends React.Component {
         <Layout className={styles.layout}>
           <Header className={styles.header}>
             <Row>
-              <Col span={6} offset={2} style={{ textAlign: 'left' }}>
+              <Col
+                span={6}
+                offset={2}
+                style={{ textAlign: 'left', cursor: 'pointer' }}
+                onClick={this.toIndex}
+              >
                 <img
                   className={styles.headerImg}
                   src={require('../static/images/junHui.png')}
@@ -100,7 +112,7 @@ export default class appLayout extends React.Component {
               </Col>
               <Col span={4} offset={6}>
                 <UserOutlined />
-                <span style={{ marginLeft: 20 }}>{userInfo.username}</span>
+                <span style={{ marginLeft: 20 }}>{userInfo.department}</span>
               </Col>
               <Col span={3}>
                 <span style={{ fontSize: 14, cursor: 'pointer' }}>
