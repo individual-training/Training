@@ -9,7 +9,7 @@ export default class SearchPage extends React.Component {
   state = {
     detpId: '',
     userCardId: '',
-    userCheck: false,
+    userCheck: {},
   };
   componentDidMount() {
     this.props.dispatch({
@@ -23,8 +23,7 @@ export default class SearchPage extends React.Component {
     });
   };
 
-  inputChange = e => {
-    const val = e.target.value;
+  inputChange = val => {
     this.setState({
       userCardId: val,
     });
@@ -32,9 +31,9 @@ export default class SearchPage extends React.Component {
       this.props.dispatch({
         type: 'global/CheckCardId',
         payload: { id: val },
-        success: () => {
+        success: result => {
           this.setState({
-            userCheck: true,
+            userCheck: result,
           });
         },
       });
@@ -53,7 +52,7 @@ export default class SearchPage extends React.Component {
     history.push('/');
   };
   render() {
-    const { detpId, userCardId, userCheck } = this.state;
+    const { detpId, userCardId, userCheck = {} } = this.state;
     const {
       global: { childDept },
     } = this.props;
@@ -71,7 +70,7 @@ export default class SearchPage extends React.Component {
               onChange={this.selectChange}
             >
               {childDept.map(item => {
-                return <Select.Option value={item[1]}>{item[0]}</Select.Option>;
+                return <Select.Option key={item[1]}>{item[0]}</Select.Option>;
               })}
             </Select>
           </Col>
@@ -90,15 +89,24 @@ export default class SearchPage extends React.Component {
             <span className={styles.title}>查询个人训练成绩</span>
           </Col>
           <Col span={8} style={{ textAlign: 'center' }}>
-            <Input
+            <Select
+              showSearch
               style={{ width: 260 }}
               placeholder={'请输入证件id'}
-              onChange={this.inputChange}
-            ></Input>
+              onSearch={this.inputChange}
+              showArrow={false}
+              filterOption={false}
+            >
+              {userCheck.uname && (
+                <Select.Option key={userCheck.carid}>
+                  {userCheck.uname}
+                </Select.Option>
+              )}
+            </Select>
           </Col>
           <Col span={8}>
             <Button
-              disabled={!userCheck}
+              disabled={!userCheck.carid}
               className={`${styles.width110} ${styles.greenBtn}`}
               onClick={this.onUserSearch}
             >

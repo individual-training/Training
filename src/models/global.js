@@ -37,9 +37,8 @@ export default {
     *CheckCardId({ payload, success }, { call, put }) {
       const result = yield call(checkCardId, payload.id);
       if (result) {
-        success && success();
+        success && success(result);
       }
-      console.log('[ global.js/effects/34 ] reus >>', result);
     },
     *UploadImg({ payload, success }, { call }) {
       const result = yield call(uploadImg, payload);
