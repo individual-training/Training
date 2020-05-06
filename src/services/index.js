@@ -4,6 +4,10 @@ export const login = data => {
   return request.post('/api', data);
 };
 
+export const logout = () => {
+  return request.get('/api/logout');
+};
+
 export const getUserInfo = () => {
   return request.get('/api/getuser');
 };

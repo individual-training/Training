@@ -137,7 +137,7 @@ export default class User extends React.Component {
               <Form.Item label="登录密码" key="password">
                 {getFieldDecorator('password', {
                   rules: [formRules.required()],
-                })(<Input placeholder="" />)}
+                })(<Input type="password" placeholder="" />)}
               </Form.Item>
             </Col>
           </Row>

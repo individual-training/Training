@@ -30,10 +30,16 @@ export default class appLayout extends React.Component {
   }
 
   logout = () => {
+    const that = this;
     confirm({
       content: '是否要退出登录？',
       onOk() {
-        window.location.href = '/login';
+        that.props.dispatch({
+          type: 'login/Logout',
+          success: () => {
+            window.location.href = '/login';
+          },
+        });
       },
       okText: '确认',
       cancelText: '取消',

@@ -61,7 +61,7 @@ export default class AddDeptComp extends React.Component {
             <Form.Item label="密码" key={'password'}>
               {getFieldDecorator('password', {
                 rules: [formRules.required()],
-              })(<Input style={{ width: 320 }} />)}
+              })(<Input type="password" style={{ width: 320 }} />)}
             </Form.Item>
             <Form.Item label="负责人姓名" key={'uname'}>
               {getFieldDecorator('uname', {

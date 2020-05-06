@@ -103,8 +103,7 @@ export default class Login extends React.Component {
             </Form>
             {errMess && <p style={{ color: 'red', fontSize: 12 }}>{errMess}</p>}
             <Button className={styles.loginBtn} onClick={this.loginHandle}>
-              {' '}
-              登录{' '}
+              登录
             </Button>
             {/*<p className={styles.forgot}>忘记密码？</p>*/}
             <span className={styles.selectIcon}></span>

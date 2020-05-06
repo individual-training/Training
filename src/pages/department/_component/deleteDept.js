@@ -20,18 +20,18 @@ export default class DelDeptComp extends React.Component {
   };
   reset = () => {
     this.props.form.resetFields();
-  }
+  };
   submit = () => {
-    const{ form, dispatch } = this.props;
-    form.validateFields((err,values) => {
-      if(!err){
+    const { form, dispatch } = this.props;
+    form.validateFields((err, values) => {
+      if (!err) {
         dispatch({
-          type:'deptDelete/Delete',
-          payload: values
-        })
+          type: 'deptDelete/Delete',
+          payload: values,
+        });
       }
-    })
-  }
+    });
+  };
 
   render() {
     const {
@@ -71,7 +71,7 @@ export default class DelDeptComp extends React.Component {
             <Form.Item key="password" label="密码">
               {getFieldDecorator('password', {
                 rules: [formRules.required()],
-              })(<Input style={{ width: 320 }} />)}
+              })(<Input type="password" style={{ width: 320 }} />)}
             </Form.Item>
             <Form.Item key={'carid'} label="负责人证件号码">
               {getFieldDecorator('carid', {
@@ -81,10 +81,16 @@ export default class DelDeptComp extends React.Component {
           </Form>
         </div>
         <div style={{ padding: '10px 60px' }} className={styles.flexAround}>
-          <Button className={`${styles.width110} ${styles.greyBtn}`} onClick={this.reset}>
+          <Button
+            className={`${styles.width110} ${styles.greyBtn}`}
+            onClick={this.reset}
+          >
             重置
           </Button>
-          <Button className={`${styles.width110} ${styles.greenBtn}`} onClick={this.submit}>
+          <Button
+            className={`${styles.width110} ${styles.greenBtn}`}
+            onClick={this.submit}
+          >
             确定
           </Button>
         </div>
