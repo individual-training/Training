@@ -239,7 +239,7 @@ export default class Department extends React.Component {
                   this.setPart(1);
                 }}
               >
-                上肢训练
+                上肢力量训练
               </Button>
               <Button
                 className={`${styles.width110} ${partId == 2 &&
@@ -248,7 +248,7 @@ export default class Department extends React.Component {
                   this.setPart(2);
                 }}
               >
-                下肢训练
+                下肢力量训练
               </Button>
               <Button
                 className={`${styles.width110} ${partId == 3 &&
@@ -257,7 +257,7 @@ export default class Department extends React.Component {
                   this.setPart(3);
                 }}
               >
-                腹部
+                腹部力量训练
               </Button>
               <Button
                 style={{ cursor: 'pointer', float: 'right', marginTop: 17 }}

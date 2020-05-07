@@ -23,6 +23,9 @@ export default class Login extends React.Component {
             this.setState({
               errMess: '',
             });
+            this.props.dispatch({
+              type: 'global/Init',
+            });
             values.usertype == 0 ? history.push('/') : history.push('/account');
           },
           failed: () => {
