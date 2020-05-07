@@ -335,8 +335,8 @@ export default class Account extends React.Component {
                 <div style={{ width: 800 }}>
                   <Player
                     poster={require('../../static/images/video2.jpg')}
-                    // src={videoUrl}
-                    src={'http://media.w3.org/2010/05/bunny/movie.mp4'}
+                    src={videoUrl}
+                    // src={'http://media.w3.org/2010/05/bunny/movie.mp4'}
                     ref={player => {
                       this.player = player;
                     }}

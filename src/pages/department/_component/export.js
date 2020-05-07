@@ -1,18 +1,19 @@
 import React from 'react';
 import moment from 'moment';
 import { connect } from 'umi';
-import { Modal, Button, Form, DatePicker, Input } from 'antd';
-import { formItemLayoutSmall, formRules } from '@/config/form';
+import { Modal, Button, Form, DatePicker } from 'antd';
+import { formItemLayoutSmall } from '@/config/form';
 import styles from '../index.less';
 
-@connect(({ deptExport,department }) => ({
+@connect(({ deptExport, department }) => ({
   deptExport,
-  departmentId:department.departmentId
+  departmentId: department.departmentId,
 }))
 @Form.create()
 export default class ExportComp extends React.Component {
   state = {
-    date: ''
+    date: '',
+    dateTime: null,
   };
 
   handleCancel = () => {
@@ -23,22 +24,23 @@ export default class ExportComp extends React.Component {
     });
   };
 
-  selectDate = (val) => {
+  selectDate = val => {
     const date = val.format('YYYY-MM-DD');
     this.setState({
-      date
-    })
-  }
+      date: date,
+      dateTime: val,
+    });
+  };
   export = () => {
     const { form, dispatch } = this.props;
     form.validateFields((err, values) => {
       if (!err) {
         dispatch({
-          type:'deptExport/Export',
-          payload:{
-            date: values.start.format('YYYY-MM-DD')
-          }
-        })
+          type: 'deptExport/Export',
+          payload: {
+            date: values.start.format('YYYY-MM-DD'),
+          },
+        });
       }
     });
   };
@@ -47,8 +49,8 @@ export default class ExportComp extends React.Component {
       deptExport: { visible },
       departmentId,
     } = this.props;
-    const { date } = this.state;
-    const href = `/api/exportexcel?departmentId=${departmentId}&date=2020-04-23`
+    const { date, dateTime } = this.state;
+    const href = `/api/exportexcel?departmentId=${departmentId}&date=${date}`;
     return (
       <Modal
         destroyOnClose={true}
@@ -59,9 +61,14 @@ export default class ExportComp extends React.Component {
         footer={null}
       >
         <div style={{ height: '100%', padding: '20px 0px' }}>
-          <Form {...formItemLayoutSmall} >
+          <Form {...formItemLayoutSmall}>
             <Form.Item name="username" label="日期">
-              <DatePicker style={{ width: 200 }} placeholder="起始日期" onChange={this.selectDate} value={date || moment()} />
+              <DatePicker
+                style={{ width: 200 }}
+                placeholder="起始日期"
+                onChange={this.selectDate}
+                value={dateTime || moment()}
+              />
             </Form.Item>
           </Form>
         </div>
