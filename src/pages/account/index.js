@@ -33,6 +33,11 @@ export default class Account extends React.Component {
     });
     this.player &&
       this.player.subscribeToStateChange(this.handleStateChange.bind(this));
+
+    const that = this;
+    window.onresize = function() {
+      that.accountChart && that.accountChart.resize();
+    };
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -157,7 +162,7 @@ export default class Account extends React.Component {
     const chartFlag = Array.isArray(history) && history.length > 0;
     return (
       <div className={styles.container}>
-        <Row gutter={35}>
+        <Row gutter={35} style={{ margin: 0 }}>
           <Col span={4} offset={4}>
             <Button
               className={`${styles.width130} ${
