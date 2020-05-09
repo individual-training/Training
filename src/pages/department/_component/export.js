@@ -49,8 +49,9 @@ export default class ExportComp extends React.Component {
       deptExport: { visible },
       departmentId,
     } = this.props;
-    const { date, dateTime } = this.state;
-    const href = `/api/exportexcel?departmentId=${departmentId}&date=${date}`;
+    let { date, dateTime } = this.state;
+    const href = `/api/exportexcel?departmentId=${departmentId}&date=${date ||
+      moment().format('YYYY-MM-DD')}`;
     return (
       <Modal
         destroyOnClose={true}

@@ -160,6 +160,7 @@ export default class Account extends React.Component {
     } = this.props;
     const { paused } = this.state;
     const chartFlag = Array.isArray(history) && history.length > 0;
+    const partImage = [null, 'shangzhi.png', 'fubu.png', 'xiazhi.png'][partId];
     return (
       <div className={styles.container}>
         <Row gutter={35} style={{ margin: 0 }}>
@@ -360,7 +361,7 @@ export default class Account extends React.Component {
                   <div className={styles.imgContainer}>
                     <img
                       className={styles.img}
-                      src={require('@/static/images/body.png')}
+                      src={require(`@/static/images/${partImage}`)}
                       alt=""
                     />
                     <div className={styles.note}></div>
