@@ -4,6 +4,7 @@ import { Breadcrumb, Layout, Row, Col, Modal } from 'antd';
 import { LogoutOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons';
 import breadConfig from '@/config/breadCrumb.js';
 import styles from './index.less';
+import './style.css';
 
 const { Header, Content } = Layout;
 const { confirm } = Modal;
@@ -26,7 +27,7 @@ export default class appLayout extends React.Component {
       this.setState({
         showImg: false,
       });
-    }, 1.5 * 1000);
+    }, 2 * 1000);
   }
 
   logout = () => {
@@ -86,9 +87,9 @@ export default class appLayout extends React.Component {
     const { userInfo } = global;
     if (this.state.showImg && pathname == '/') {
       return (
-        <div style={{ width: '100%', height: '100%', backgroundColor: 'grey' }}>
+        <div className={styles.indexImgContainer}>
           <img
-            style={{ width: '100%', height: '100%' }}
+            className={'hide'}
             src={require('../static/images/indexImg.jpg')}
             alt=""
           />
@@ -99,7 +100,7 @@ export default class appLayout extends React.Component {
       return children;
     }
     return (
-      <div className={styles.index}>
+      <div className={`${styles.index}`}>
         <Layout className={styles.layout}>
           <Header className={styles.header}>
             <Row>
