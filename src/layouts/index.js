@@ -50,15 +50,18 @@ export default class appLayout extends React.Component {
   getBreadcrumb = () => {
     const {
       location: { pathname },
+      global: { userInfo },
     } = this.props;
     const locArr = pathname.split('/');
     locArr.shift();
     if (locArr.length > 0) {
       return (
         <Breadcrumb separator=">">
-          <Breadcrumb.Item>
-            <Link to={'/'}>首页</Link>
-          </Breadcrumb.Item>
+          {userInfo.userType === 0 && (
+            <Breadcrumb.Item>
+              <Link to={'/'}>首页</Link>
+            </Breadcrumb.Item>
+          )}
           {locArr.map(item => {
             return breadConfig[item] ? (
               <Breadcrumb.Item>

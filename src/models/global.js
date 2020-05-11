@@ -30,7 +30,11 @@ export default {
       if (result) {
         yield put({
           type: 'setUserInfo',
-          payload: { department: result.user, userId: result.userId },
+          payload: {
+            department: result.user,
+            userId: result.userId,
+            userType: result.userType || 0,
+          },
         });
       }
     },

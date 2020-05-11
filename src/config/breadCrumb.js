@@ -16,7 +16,7 @@ export default {
     link: '/userManage',
   },
   account: {
-    title: '个人账号',
+    title: '训练情况',
   },
   ruleManage: {
     title: '规则管理',
