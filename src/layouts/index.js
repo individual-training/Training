@@ -30,6 +30,17 @@ export default class appLayout extends React.Component {
     }, 2 * 1000);
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {
+      global: { userInfo },
+      location: { pathname },
+    } = this.props;
+    if (userInfo.userType === 1 && pathname !== '/account') {
+      history.push('/account');
+      return;
+    }
+  }
+
   logout = () => {
     const that = this;
     confirm({
@@ -102,6 +113,7 @@ export default class appLayout extends React.Component {
     if (pathname === '/' || pathname === '/login') {
       return children;
     }
+
     return (
       <div className={`${styles.index}`}>
         <Layout className={styles.layout}>
