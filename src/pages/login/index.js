@@ -68,7 +68,7 @@ export default class Login extends React.Component {
               >
                 {getFieldDecorator('usertype', {
                   rules: [],
-                  initialValue: '1',
+                  initialValue: '0',
                 })(
                   <Select placeholder="账户类型" allowClear>
                     <Option value="0">单位</Option>
