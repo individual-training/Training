@@ -233,7 +233,7 @@ export default class Department extends React.Component {
           <Layout>
             <Header className={styles.header}>
               <Button
-                className={`${styles.width110} ${partId == 1 &&
+                className={`${styles.headerBtn} ${partId == 1 &&
                   styles.greenBtn}`}
                 onClick={() => {
                   this.setPart(1);
@@ -242,23 +242,24 @@ export default class Department extends React.Component {
                 上肢力量训练
               </Button>
               <Button
-                className={`${styles.width110} ${partId == 2 &&
+                className={`${styles.headerBtn} ${partId == 3 &&
                   styles.greenBtn}`}
                 onClick={() => {
                   this.setPart(2);
                 }}
               >
-                下肢力量训练
+                腹部力量训练
               </Button>
               <Button
-                className={`${styles.width110} ${partId == 3 &&
+                className={`${styles.headerBtn} ${partId == 2 &&
                   styles.greenBtn}`}
                 onClick={() => {
                   this.setPart(3);
                 }}
               >
-                腹部力量训练
+                下肢力量训练
               </Button>
+
               <Button
                 style={{ cursor: 'pointer', float: 'right', marginTop: 17 }}
                 className={styles.greenBtn}
