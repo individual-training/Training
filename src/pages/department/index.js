@@ -242,7 +242,7 @@ export default class Department extends React.Component {
                 上肢力量训练
               </Button>
               <Button
-                className={`${styles.headerBtn} ${partId == 3 &&
+                className={`${styles.headerBtn} ${partId == 2 &&
                   styles.greenBtn}`}
                 onClick={() => {
                   this.setPart(2);
@@ -251,7 +251,7 @@ export default class Department extends React.Component {
                 腹部力量训练
               </Button>
               <Button
-                className={`${styles.headerBtn} ${partId == 2 &&
+                className={`${styles.headerBtn} ${partId == 3 &&
                   styles.greenBtn}`}
                 onClick={() => {
                   this.setPart(3);
