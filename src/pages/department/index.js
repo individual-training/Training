@@ -65,7 +65,6 @@ export default class Department extends React.Component {
       payload: true,
     });
   };
-
   showDetail = (data, record) => {
     this.props.dispatch({
       type: 'deptDetail/ShowDetail',
@@ -75,7 +74,12 @@ export default class Department extends React.Component {
       },
     });
   };
-
+  tableChange = pagination => {
+    this.props.dispatch({
+      type: 'department/SetPagination',
+      payload: pagination,
+    });
+  };
   delDept = () => {
     this.props.dispatch({
       type: 'deptDelete/setVisible',
@@ -273,12 +277,9 @@ export default class Department extends React.Component {
                 dataSource={this.getDataSource()}
                 columns={this.getColumns()}
                 pagination={pagination}
+                onChange={this.tableChange}
                 loading={loading}
               />
-              {/*<div style={{marginTop:30}}>
-                <a style={{display:'inline-block',marginRight:30, cursor:'pointer'}} onClick={this.onNote}>备注</a>
-                <a style={{ cursor:'pointer'}} onClick={this.onExport}>成绩导出</a>
-              </div>*/}
             </Content>
           </Layout>
         </Layout>
