@@ -35,7 +35,11 @@ export default class appLayout extends React.Component {
       global: { userInfo },
       location: { pathname },
     } = this.props;
-    if (userInfo.userType === 1 && pathname !== '/account') {
+    if (
+      userInfo.userType === 1 &&
+      pathname !== '/login' &&
+      pathname !== '/account'
+    ) {
       history.push('/account');
       return;
     }
