@@ -8,12 +8,13 @@ import styles from '../index.less';
 @connect(({ deptExport, department }) => ({
   deptExport,
   departmentId: department.departmentId,
+  partId: department.partId,
 }))
 @Form.create()
 export default class ExportComp extends React.Component {
   state = {
-    date: '',
-    dateTime: null,
+    date: moment().format('YYYY-MM-DD'),
+    dateTime: moment(),
   };
 
   handleCancel = () => {
@@ -25,7 +26,7 @@ export default class ExportComp extends React.Component {
   };
 
   selectDate = val => {
-    const date = val.format('YYYY-MM-DD');
+    const date = val ? val.format('YYYY-MM-DD') : '';
     this.setState({
       date: date,
       dateTime: val,
@@ -48,9 +49,10 @@ export default class ExportComp extends React.Component {
     const {
       deptExport: { visible },
       departmentId,
+      partId,
     } = this.props;
     let { date, dateTime } = this.state;
-    const href = `/api/exportexcel?departmentId=${departmentId}&date=${date ||
+    const href = `/api/exportexcel?part_id=${partId}&departmentId=${departmentId}&date=${date ||
       moment().format('YYYY-MM-DD')}`;
     return (
       <Modal
@@ -68,13 +70,14 @@ export default class ExportComp extends React.Component {
                 style={{ width: 200 }}
                 placeholder="起始日期"
                 onChange={this.selectDate}
-                value={dateTime || moment()}
+                value={dateTime}
               />
             </Form.Item>
           </Form>
         </div>
         <div style={{ textAlign: 'center', marginTop: 20 }}>
           <Button
+            disabled={!dateTime}
             className={`${styles.formBtn} ${styles.greenBtn}`}
             onClick={this.handleCancel}
             href={href}
