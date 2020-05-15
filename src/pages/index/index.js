@@ -65,9 +65,9 @@ export default class Index extends React.Component {
             <Row className={styles.row}>
               <Col span={12}>
                 <IndexCard
-                  mess={'人员录入'}
+                  mess={'人员管理'}
                   position={'right'}
-                  to={'/users'}
+                  to={'/userManage'}
                   image={'renYuanIndex.png'}
                 ></IndexCard>
               </Col>
@@ -89,7 +89,7 @@ export default class Index extends React.Component {
                 ></IndexCard>
               </Col>
               <Col span={12}>
-                <IndexCard
+                {/*<IndexCard
                   mess={'设置'}
                   image={'sheZheIndex.png'}
                   extra={
@@ -97,6 +97,11 @@ export default class Index extends React.Component {
                       <Button style={{ width: 140 }}> 管理选择 </Button>
                     </Dropdown>
                   }
+                ></IndexCard>*/}
+                <IndexCard
+                  mess={'设备管理'}
+                  to={'/equipManage'}
+                  image={'danWeiIndex.png'}
                 ></IndexCard>
               </Col>
             </Row>
