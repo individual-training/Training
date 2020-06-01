@@ -1,44 +1,50 @@
 import React from 'react';
 import { connect } from 'umi';
 import { Button, Modal, Table } from 'antd';
-import { AddEquip } from './_component'
+import { AddEquip } from './_component';
 import styles from './index.less';
 
-@connect(({equipManageList})=>({equipManageList}))
-export default class Department extends React.Component{
-  state = {}
+@connect(({ equipManageList }) => ({ equipManageList }))
+export default class Department extends React.Component {
+  state = {};
 
   componentDidMount() {
-    this.props.dispatch({type:'equipManageList/GetList'})
+    this.props.dispatch({ type: 'equipManageList/GetList' });
   }
 
   addEquip = () => {
     this.props.dispatch({
-      type:'editEquip/Create',
-      payload:true
-    })
-  }
+      type: 'editEquip/Create',
+      payload: true,
+    });
+  };
 
-  editEquip = (record) => {
+  editEquip = record => {
     this.props.dispatch({
-      type:'editEquip/Edit',
-      payload:record
-    })
-  }
+      type: 'editEquip/Edit',
+      payload: record,
+    });
+  };
+  initEquip = record => {
+    this.props.dispatch({
+      type: 'editEquip/InitEquip',
+      payload: record,
+    });
+  };
 
-  deleteEquip = (record) => {
+  deleteEquip = record => {
     Modal.confirm({
       content: '是否要删除当前设备？',
-      onOk:()=>{
+      onOk: () => {
         this.props.dispatch({
-          type:'editEquip/DelEquip',
-          payload: record
-        })
+          type: 'editEquip/DelEquip',
+          payload: record,
+        });
       },
-      okText:"确认",
-      cancelText:'取消'
+      okText: '确认',
+      cancelText: '取消',
     });
-  }
+  };
 
   getColumns = () => {
     return [
@@ -60,44 +66,65 @@ export default class Department extends React.Component{
       {
         title: '序列号',
         dataIndex: 'serialNumber',
-        key: 'serialNumber'
+        key: 'serialNumber',
       },
       {
         title: '操作',
         key: 'options',
-        render:(_,record)=>{
-          return(
+        render: (_, record) => {
+          return (
             <div>
-              <a className={styles.operate} onClick={()=>(this.editEquip(record))}>
-                <img src={require('../../static/icon/edit.png')} alt=""/>
+              <a
+                className={styles.operate}
+                onClick={() => this.initEquip(record)}
+              >
+                <img src={require('../../static/icon/edit.png')} alt="" />
+                <span>初始化</span>
+              </a>
+              <a
+                className={styles.operate}
+                onClick={() => this.editEquip(record)}
+              >
+                <img src={require('../../static/icon/edit.png')} alt="" />
                 <span>编辑</span>
               </a>
-              <a className={styles.operate} onClick={()=>(this.deleteEquip(record))}>
-                <img src={require('../../static/icon/delete.png')} alt=""/>
+              <a
+                className={styles.operate}
+                onClick={() => this.deleteEquip(record)}
+              >
+                <img src={require('../../static/icon/delete.png')} alt="" />
                 <span>删除</span>
               </a>
-
             </div>
-          )
-        }
+          );
+        },
       },
-    ]
-  }
+    ];
+  };
   getDataSource = () => {
-    const {  equipManageList } = this.props;
-    return equipManageList.listInfo
-  }
-  render(){
-    const {  equipManageList } = this.props;
+    const { equipManageList } = this.props;
+    return equipManageList.listInfo;
+  };
+  render() {
+    const { equipManageList } = this.props;
     const { loading } = equipManageList;
     return (
       <React.Fragment>
-        <Table dataSource={this.getDataSource()} columns={this.getColumns()} loading={loading}/>
+        <Table
+          dataSource={this.getDataSource()}
+          columns={this.getColumns()}
+          loading={loading}
+        />
         <div className={styles.bottomBtns}>
-          <Button className={`${styles.formBtn} ${styles.greenBtn}`} onClick={this.addEquip}>新建设备</Button>
+          <Button
+            className={`${styles.formBtn} ${styles.greenBtn}`}
+            onClick={this.addEquip}
+          >
+            新建设备
+          </Button>
         </div>
         <AddEquip></AddEquip>
       </React.Fragment>
-    )
+    );
   }
 }

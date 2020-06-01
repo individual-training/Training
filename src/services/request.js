@@ -1,5 +1,6 @@
 import request from 'umi-request';
 import { history } from 'umi';
+import { message } from 'antd';
 
 const responseFn = (result = {}) => {
   if (result.success) {
@@ -7,6 +8,7 @@ const responseFn = (result = {}) => {
   } else if (result.code == 401) {
     history.push('/login');
   } else {
+    message.error(result.msg);
     return null;
   }
 };

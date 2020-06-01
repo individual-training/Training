@@ -92,6 +92,11 @@ export default class AddEquipComp extends React.Component {
                 rules: [formRules.required()],
               })(<Input style={{ width: 320 }} disabled={type === 'edit'} />)}
             </Form.Item>
+            <Form.Item label="识别回调地址" key={'callbackUrl'}>
+              {getFieldDecorator('callbackUrl', {
+                rules: [formRules.required()],
+              })(<Input style={{ width: 320 }} />)}
+            </Form.Item>
           </Form>
         </div>
         <div style={{ padding: '10px 120px' }} className={styles.flexAround}>

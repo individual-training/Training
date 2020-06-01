@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect, history } from 'umi';
 import { Button, Table, Row, Col, Input, Modal, Select } from 'antd';
-import { delayChange } from '@/utils/util';
 import { EditUser } from './_component';
 import styles from './index.less';
 

@@ -52,7 +52,9 @@ export const addEquip = data => {
 export const editEquip = data => {
   return request.post('/api/editeq', data);
 };
-
+export const initEquip = data => {
+  return request.post('/api/DevInitialize', data);
+};
 export const delEquip = data => {
   return request.post('/api/deleq', data);
 };

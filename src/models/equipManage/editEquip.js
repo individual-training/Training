@@ -1,4 +1,5 @@
-import { addEquip, editEquip, delEquip } from '@/services';
+import { addEquip, editEquip, delEquip, initEquip } from '@/services';
+import { message } from 'antd';
 
 export default {
   namespace: 'editEquip',
@@ -38,6 +39,17 @@ export default {
       yield put({ type: 'setBtnLoading', payload: false });
       if (result) {
         yield put({ type: 'setVisible', payload: false });
+        yield put({ type: 'equipManageList/GetList' });
+        yield put({ type: 'reset' });
+      }
+    },
+    *InitEquip({ payload }, { call, put }) {
+      yield put({ type: 'setBtnLoading', payload: true });
+      const result = yield call(initEquip, { DevId: payload.id });
+      console.log('[ editEquip.js/effects/49 ] re >>', result);
+      yield put({ type: 'setBtnLoading', payload: false });
+      message.success('初始化成功');
+      if (result) {
         yield put({ type: 'equipManageList/GetList' });
         yield put({ type: 'reset' });
       }
