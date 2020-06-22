@@ -25,31 +25,30 @@ export const userLayout = {
   },
 };
 
-
 export const formRules = {
-  required:(mess) => ({
-    required:true,
-    message: mess || '不能为空'
+  required: mess => ({
+    required: true,
+    message: mess || '不能为空',
   }),
-  minLength:(len,mess) => ({
-    min:len,
-    message: mess || `输入长度不能少于${len}位`
+  minLength: (len, mess) => ({
+    min: len,
+    message: mess || `输入长度不能少于${len}位`,
   }),
-  maxLength:(len,mess) => ({
-    min:len,
-    message: mess || `输入长度不能多于${len}位`
+  maxLength: (len, mess) => ({
+    min: len,
+    message: mess || `输入长度不能多于${len}位`,
   }),
 
-  range: function(min,max,mess){
+  range(min, max, mess) {
     return {
-      validator:(rule, value, callback)=>{
-        if(Number(value)> max || Number(value)<min){
-          callback(mess || `输入值超出范围[${min},${max}]`)
-        }else{
+      validator: (rule, value, callback) => {
+        if (Number(value) > max || Number(value) < min) {
+          callback(mess || `输入值超出范围[${min},${max}]`);
+        } else {
           callback();
         }
-      }
-    }
-  }
-}
+      },
+    };
+  },
+};
 export default {};

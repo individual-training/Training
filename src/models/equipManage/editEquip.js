@@ -1,4 +1,4 @@
-import { addEquip, editEquip, delEquip, initEquip } from '@/services';
+import { addEquip, editEquip, delEquip, initEquip, addArea } from '@/services';
 import { message } from 'antd';
 
 export default {
@@ -6,14 +6,14 @@ export default {
 
   state: {
     visible: false,
+    areaVisible: false,
     btnLoading: false,
     data: {},
     dataStringify: '',
   },
 
   effects: {
-    *query({ payload }, { call, put }) {},
-    *Create({ payload }, { call, put }) {
+    *Create(_, { put }) {
       yield put({ type: 'setVisible', payload: true });
       yield put({ type: 'setType', payload: 'create' });
     },
@@ -27,9 +27,9 @@ export default {
         yield put({ type: 'reset' });
       }
     },
-    *Edit({ payload }, { call, put }) {
-      yield put({ type: 'setEquip', payload: payload });
-      yield put({ type: 'setEquipStr', payload: payload });
+    *Edit({ payload }, { put }) {
+      yield put({ type: 'setEquip', payload });
+      yield put({ type: 'setEquipStr', payload });
       yield put({ type: 'setType', payload: 'edit' });
       yield put({ type: 'setVisible', payload: true });
     },
@@ -43,10 +43,25 @@ export default {
         yield put({ type: 'reset' });
       }
     },
+    *SetArea({ payload }, { call, put }) {
+      yield put({ type: 'setEquip', payload });
+      yield put({ type: 'setAreaVisible', payload: true });
+    },
+    *AddArea({ payload }, { call, put }) {
+      yield put({ type: 'setBtnLoading', payload: true });
+      const result = yield call(addArea, {
+        areaName: payload.areaName,
+        areaComment: payload.areaDesc,
+        DevId: payload.id,
+      });
+      yield put({ type: 'setBtnLoading', payload: false });
+      yield put({ type: 'setAreaVisible', payload: false });
+      yield put({ type: 'equipManageList/GetList' });
+      yield put({ type: 'reset' });
+    },
     *InitEquip({ payload }, { call, put }) {
       yield put({ type: 'setBtnLoading', payload: true });
       const result = yield call(initEquip, { DevId: payload.id });
-      console.log('[ editEquip.js/effects/49 ] re >>', result);
       yield put({ type: 'setBtnLoading', payload: false });
       message.success('初始化成功');
       if (result) {
@@ -60,7 +75,7 @@ export default {
         yield put({ type: 'equipManageList/GetList' });
       }
     },
-    *Close({ payload }, { call, put }) {
+    *Close(_, { put }) {
       yield put({ type: 'setVisible', payload: false });
       yield put({ type: 'reset', payload: false });
     },
@@ -70,6 +85,12 @@ export default {
       return {
         ...state,
         visible: payload,
+      };
+    },
+    setAreaVisible(state, { payload }) {
+      return {
+        ...state,
+        areaVisible: payload,
       };
     },
     setBtnLoading(state, { payload }) {

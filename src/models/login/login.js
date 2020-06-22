@@ -1,4 +1,5 @@
 import { login, logout } from '../../services';
+
 export default {
   namespace: 'login',
 
@@ -17,7 +18,7 @@ export default {
         failed && failed();
       }
     },
-    *Logout({ payload, success }, { put, call }) {
+    *Logout({ _, success }, { call }) {
       yield call(logout);
       localStorage.removeItem('userInfo');
       success && success();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter, Link, connect, history } from 'umi';
 import { Breadcrumb, Layout, Row, Col, Modal } from 'antd';
-import { LogoutOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import breadConfig from '@/config/breadCrumb.js';
 import styles from './index.less';
 import './style.css';

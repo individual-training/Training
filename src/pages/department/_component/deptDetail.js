@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'umi';
 import { Modal, Table } from 'antd';
-import { formItemLayoutSmall, formRules } from '@/config/form';
-import styles from '../index.less';
+import PlayerModal from './playerModal';
 
 @connect(({ deptDetail }) => ({ deptDetail }))
 export default class DeptDetail extends React.Component {
@@ -20,6 +19,15 @@ export default class DeptDetail extends React.Component {
       type: 'deptDetail/GetScores',
       payload: {
         partId: filters.part[0],
+      },
+    });
+  };
+  showPlayer = record => {
+    this.props.dispatch({
+      type: 'deptDetail/setPlayerVisible',
+      payload: {
+        visible: true,
+        url: record.recFile,
       },
     });
   };
@@ -75,6 +83,23 @@ export default class DeptDetail extends React.Component {
           return text + '分钟';
         },
       },
+      {
+        title: '视频',
+        dataIndex: 'recFile',
+        key: 'recFile',
+        align: 'center',
+        render: (_, record) => {
+          return (
+            <a
+              onClick={() => {
+                this.showPlayer(record);
+              }}
+            >
+              查看视频
+            </a>
+          );
+        },
+      },
     ];
   };
 
@@ -86,7 +111,7 @@ export default class DeptDetail extends React.Component {
     return (
       <Modal
         destroyOnClose={true}
-        width={680}
+        width={860}
         title={
           <span>
             <span style={{ color: 'green', marginRight: 15 }}>
@@ -111,6 +136,7 @@ export default class DeptDetail extends React.Component {
             onChange={this.tableChange}
           ></Table>
         </div>
+        <PlayerModal></PlayerModal>
       </Modal>
     );
   }

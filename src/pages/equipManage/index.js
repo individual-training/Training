@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'umi';
 import { Button, Modal, Table } from 'antd';
-import { AddEquip } from './_component';
+import { AddEquip, AddArea } from './_component';
 import styles from './index.less';
 
 @connect(({ equipManageList }) => ({ equipManageList }))
@@ -22,6 +22,12 @@ export default class Department extends React.Component {
   editEquip = record => {
     this.props.dispatch({
       type: 'editEquip/Edit',
+      payload: record,
+    });
+  };
+  editEquipArea = record => {
+    this.props.dispatch({
+      type: 'editEquip/SetArea',
       payload: record,
     });
   };
@@ -78,8 +84,15 @@ export default class Department extends React.Component {
                 className={styles.operate}
                 onClick={() => this.initEquip(record)}
               >
-                <img src={require('../../static/icon/edit.png')} alt="" />
+                <img src={require('../../static/icon/initEq.png')} alt="" />
                 <span>初始化</span>
+              </a>
+              <a
+                className={styles.operate}
+                onClick={() => this.editEquipArea(record)}
+              >
+                <img src={require('../../static/icon/addEqArea.png')} alt="" />
+                <span>添加区域</span>
               </a>
               <a
                 className={styles.operate}
@@ -124,6 +137,7 @@ export default class Department extends React.Component {
           </Button>
         </div>
         <AddEquip></AddEquip>
+        <AddArea></AddArea>
       </React.Fragment>
     );
   }

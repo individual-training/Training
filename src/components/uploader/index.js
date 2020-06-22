@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'umi';
-import { Upload, Modal, message } from 'antd';
+import { Upload, Modal } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -13,7 +11,6 @@ function getBase64(file) {
   });
 }
 
-@connect()
 export default class PicturesWall extends React.Component {
   constructor(props) {
     super(props);
@@ -25,19 +22,23 @@ export default class PicturesWall extends React.Component {
     };
   }
   componentDidMount() {
-    if(this.props.fileList){
+    if (this.props.fileList) {
       this.setState({
-        fileList:[{
-          url:this.props.fileList,
-          uid:'-1',
-          name:'head_img',
-          status:'done'
-        }]
-      })
+        fileList: [
+          {
+            url: this.props.fileList,
+            uid: '-1',
+            name: 'head_img',
+            status: 'done',
+          },
+        ],
+      });
     }
   }
 
-  handleCancel = () => this.setState({ previewVisible: false });
+  handleCancel = () => {
+    this.setState({ previewVisible: false });
+  };
 
   handlePreview = async file => {
     if (!file.url && !file.preview) {
@@ -47,31 +48,38 @@ export default class PicturesWall extends React.Component {
     this.setState({
       previewImage: file.url || file.preview,
       previewVisible: true,
-      previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+      previewTitle:
+        file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
     });
   };
 
-  beforeUpload = (file) => {
-    const {imgType, dispatch, onChange} = this.props;
+  beforeUpload = file => {
+    const { imgType, dispatch, onChange } = this.props;
     var formData = new FormData();
-    formData.append("image_name",file);
-    formData.append("img_type",imgType);
+    formData.append('image_name', file);
+    formData.append('img_type', imgType);
     dispatch({
-      type:'global/UploadImg',
-      payload:formData,
-      success:(result) => {
-        onChange(result['img_url'])
-      }
-    })
+      type: 'global/UploadImg',
+      payload: formData,
+      success: result => {
+        onChange(result.img_url);
+      },
+    });
     return false;
-  }
+  };
 
   handleChange = ({ fileList }) => {
-    this.setState({ fileList })
+    this.setState({ fileList });
   };
   render() {
-    const { previewVisible, previewImage, fileList, previewTitle, ...other } = this.state;
-    const { action='/api/pushimage'} = this.props;
+    const {
+      previewVisible,
+      previewImage,
+      fileList,
+      previewTitle,
+      ...other
+    } = this.state;
+    const { action = '/api/pushimage' } = this.props;
     const uploadButton = (
       <div>
         <PlusOutlined />

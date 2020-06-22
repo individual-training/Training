@@ -16,14 +16,13 @@ export default {
   },
 
   effects: {
-    *query({ payload }, { call, put }) {},
-    *GetDeptList({ payload }, { select, call, put }) {
+    *GetDeptList({}, { select, call, put }) {
       yield put({ type: 'setLoading', payload: true });
       const { departmentId, partId, pagination } = yield select(
         state => state.department,
       );
       const result = yield call(getDeptList, {
-        departmentId: departmentId,
+        departmentId,
         part_id: partId,
         pageSize: pagination.pageSize,
         pageNum: pagination.current,
@@ -36,7 +35,7 @@ export default {
       yield put({ type: 'GetDeptList', payload });
     },
     *SetDeptId({ payload }, { put }) {
-      yield put({ type: 'setDeptId', payload: payload });
+      yield put({ type: 'setDeptId', payload });
       yield put({ type: 'GetDeptList', payload });
     },
     *SetPagination({ payload }, { put }) {

@@ -59,6 +59,10 @@ export const delEquip = data => {
   return request.post('/api/deleq', data);
 };
 
+export const addArea = data => {
+  return request.post('/api/addArea', data);
+};
+
 /** 部门管理*/
 export const getDeptList = params => {
   return request.get('/api/tissue', params);
