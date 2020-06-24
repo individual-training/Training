@@ -27,8 +27,9 @@ export default class Department extends React.Component {
       dispatch,
       global,
     } = this.props;
-    const deptId =
-      departmentId || (global.childDept[0] && global.childDept[0][1]);
+    /* const deptId =
+      departmentId || (global.childDept[0] && global.childDept[0][1]);*/
+    const deptId = departmentId;
     dispatch({
       type: 'department/SetDeptId',
       payload: deptId,
