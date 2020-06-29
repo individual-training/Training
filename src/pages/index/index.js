@@ -101,7 +101,7 @@ export default class Index extends React.Component {
                 <IndexCard
                   mess={'设备管理'}
                   to={'/equipManage'}
-                  image={'danWeiIndex.png'}
+                  image={'sheZheIndex.png'}
                 ></IndexCard>
               </Col>
             </Row>
