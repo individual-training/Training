@@ -1,6 +1,7 @@
 import React from 'react';
 import { Upload, Modal } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { connect } from 'umi';
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -11,6 +12,7 @@ function getBase64(file) {
   });
 }
 
+@connect()
 export default class PicturesWall extends React.Component {
   constructor(props) {
     super(props);
