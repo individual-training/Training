@@ -39,6 +39,7 @@ export default class DeptDetail extends React.Component {
         dataIndex: 'part',
         key: 'part',
         align: 'center',
+        width: 120,
         filterMultiple: false,
         defaultFilteredValue: ['1'],
         filters: [
@@ -49,6 +50,7 @@ export default class DeptDetail extends React.Component {
       },
       {
         title: '训练科目',
+        width: 140,
         dataIndex: 'course',
         key: 'course',
         align: 'center',
@@ -76,6 +78,13 @@ export default class DeptDetail extends React.Component {
       },
       {
         title: '时间',
+        dataIndex: 'create_date',
+        key: 'create_date',
+        align: 'center',
+        width: 200,
+      },
+      {
+        title: '时长',
         dataIndex: 'consuming',
         key: 'consuming',
         align: 'center',
@@ -111,7 +120,7 @@ export default class DeptDetail extends React.Component {
     return (
       <Modal
         destroyOnClose={true}
-        width={860}
+        width={960}
         title={
           <span>
             <span style={{ color: 'green', marginRight: 15 }}>
