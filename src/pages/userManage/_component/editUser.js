@@ -5,7 +5,10 @@ import { userLayout, formRules } from '@/config/form';
 import { Uploader } from '@/components';
 import styles from '../index.less';
 
-@connect(({ editUser }) => ({ editUser }))
+@connect(({ editUser, global }) => ({
+  editUser,
+  childDept: global.childDept,
+}))
 @Form.create({
   mapPropsToFields(props) {
     const { data } = props.editUser;
@@ -59,8 +62,8 @@ export default class EditUser extends React.Component {
   };
 
   render() {
-    const { editUser, form } = this.props;
-    const { visible, data, btnLoading } = editUser;
+    const { editUser, form, childDept } = this.props;
+    const { visible, btnLoading } = editUser;
     const { getFieldDecorator } = form;
     return (
       <Modal
@@ -90,10 +93,15 @@ export default class EditUser extends React.Component {
                 {getFieldDecorator('department', {
                   rules: [formRules.required()],
                 })(
-                  <Select placeholder="选择部门" allowClear disabled={true}>
-                    <Select.Option value="">选择部门</Select.Option>
-                    <Select.Option value="1">特战队</Select.Option>
-                    <Select.Option value="2">特战队-1</Select.Option>
+                  <Select placeholder="选择部门" allowClear>
+                    <Select.Option value="">请选择部门</Select.Option>
+                    {childDept.map(item => {
+                      return (
+                        <Select.Option value={`${item[1]}`}>
+                          {item[0]}
+                        </Select.Option>
+                      );
+                    })}
                   </Select>,
                 )}
               </Form.Item>
