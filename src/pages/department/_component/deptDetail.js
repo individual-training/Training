@@ -89,7 +89,7 @@ export default class DeptDetail extends React.Component {
         key: 'consuming',
         align: 'center',
         render: text => {
-          return text + '分钟';
+          return text * 60 + '秒';
         },
       },
       {
