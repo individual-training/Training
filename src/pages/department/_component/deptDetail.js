@@ -35,6 +35,16 @@ export default class DeptDetail extends React.Component {
   getColumns = () => {
     return [
       {
+        title: '序号',
+        dataIndex: '',
+        key: 'order',
+        align: 'center',
+        width: 60,
+        render(text, record, index) {
+          return index + 1;
+        },
+      },
+      {
         title: '训练部位',
         dataIndex: 'part',
         key: 'part',
@@ -60,12 +70,14 @@ export default class DeptDetail extends React.Component {
         dataIndex: 'results',
         key: 'results',
         align: 'center',
+        width: 80,
       },
       {
         title: '结果',
         dataIndex: 'result',
         key: 'result',
         align: 'center',
+        width: 90,
       },
       {
         title: '次数',
@@ -75,6 +87,7 @@ export default class DeptDetail extends React.Component {
         render: text => {
           return text + '次';
         },
+        width: 80,
       },
       {
         title: '时间',
@@ -89,7 +102,7 @@ export default class DeptDetail extends React.Component {
         key: 'consuming',
         align: 'center',
         render: text => {
-          return text * 60 + '秒';
+          return text + '秒';
         },
       },
       {
@@ -120,7 +133,7 @@ export default class DeptDetail extends React.Component {
     return (
       <Modal
         destroyOnClose={true}
-        width={960}
+        width={1000}
         title={
           <span>
             <span style={{ color: 'green', marginRight: 15 }}>

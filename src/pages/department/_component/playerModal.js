@@ -31,7 +31,7 @@ export default class PlayerModal extends React.Component {
           <Player
             poster={require('../../../static/images/video2.jpg')}
             src={`${deptDetail.playerUrl}`}
-            //src={'http://media.w3.org/2010/05/bunny/movie.mp4'}
+            // src={'http://media.w3.org/2010/05/bunny/movie.mp4'}
             ref={player => {
               this.player = player;
             }}
