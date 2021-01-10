@@ -136,11 +136,11 @@ export default class appLayout extends React.Component {
                 />
                 <span className={styles.headerTitle}>单兵综合体能训练系统</span>
               </Col>
-              <Col span={4} offset={6}>
+              <Col span={2} offset={10}>
                 <UserOutlined />
                 <span style={{ marginLeft: 20 }}>{userInfo.department}</span>
               </Col>
-              <Col span={3}>
+              <Col span={2}>
                 <span style={{ fontSize: 14, cursor: 'pointer' }}>
                   <LogoutOutlined style={{ color: 'red' }} />
                   <span style={{ marginLeft: 6 }} onClick={this.logout}>
