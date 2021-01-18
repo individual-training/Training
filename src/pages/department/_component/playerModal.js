@@ -27,8 +27,10 @@ export default class PlayerModal extends React.Component {
         onCancel={this.handleCancel}
         footer={null}
       >
-        <div style={{ height: '100%' }}>
+        <div style={{ height: 457 }}>
           <Player
+            height={'100%'}
+            fluid={false}
             poster={require('../../../static/images/video2.jpg')}
             src={`${deptDetail.playerUrl}`}
             // src={'http://media.w3.org/2010/05/bunny/movie.mp4'}
