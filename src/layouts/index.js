@@ -15,7 +15,7 @@ export default class appLayout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showImg: true,
+      showImg: false,
     };
   }
 
@@ -23,11 +23,11 @@ export default class appLayout extends React.Component {
     this.props.dispatch({
       type: 'global/Init',
     });
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.setState({
         showImg: false,
       });
-    }, 2 * 1000);
+    }, 2 * 1000);*/
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
